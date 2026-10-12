@@ -1,0 +1,8 @@
+[package]
+name = "classroom-core"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+
+[dependencies]
+sqlx = { version = "0.9.0", default-features = false, features = ["runtime-tokio", "postgres", "macros", "migrate", "uuid", "chrono"] }
