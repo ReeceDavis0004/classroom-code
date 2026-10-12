@@ -14,6 +14,7 @@ pub mod login;
 pub mod mail;
 pub mod password;
 pub mod register;
+pub mod reset;
 pub mod session;
 pub mod time;
 pub mod token;
@@ -29,7 +30,9 @@ pub fn router(state: AppState) -> Router {
     let public = Router::new()
         .route("/auth/register", post(register::register))
         .route("/auth/verify", post(register::verify))
-        .route("/auth/login", post(login::login));
+        .route("/auth/login", post(login::login))
+        .route("/auth/reset-request", post(reset::request))
+        .route("/auth/reset", post(reset::reset));
 
     Router::new()
         .route("/healthz", get(|| async { "ok" }))

@@ -1,0 +1,28 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE email_tokens SET used_at = now()\n          WHERE token_hash = $1 AND purpose = 'reset' AND used_at IS NULL AND expires_at > now()\n         RETURNING professor_id",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "professor_id",
+        "type_info": "Uuid",
+        "origin": {
+          "Table": {
+            "table": "email_tokens",
+            "name": "professor_id"
+          }
+        }
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Bytea"
+      ]
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "b0a39a6e1e419f6f3fcf2f8518127f3a8e83694a742bcf3d88d32de41c696922"
+}
