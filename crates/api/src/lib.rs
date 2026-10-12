@@ -5,6 +5,7 @@ use sqlx::PgPool;
 
 pub mod config;
 pub mod error;
+pub mod invite;
 pub mod mail;
 pub mod password;
 pub mod time;

@@ -13,6 +13,10 @@ async fn main() -> Result<(), Box<dyn Error>> {
     }
 
     match command.as_deref() {
+        Some("create-invite") => {
+            println!("{}", api::invite::create(&pool).await?);
+            Ok(())
+        }
         None | Some("serve") => serve(pool).await,
         Some(other) => Err(format!("unknown command: {other}").into()),
     }
