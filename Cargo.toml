@@ -11,3 +11,9 @@ publish = false
 classroom-core = { path = "crates/core" }
 sqlx = { version = "0.9.0", default-features = false, features = ["runtime-tokio", "postgres", "macros", "migrate", "uuid", "chrono"] }
 tokio = { version = "1.53.2", features = ["macros", "rt-multi-thread", "net"] }
+
+[profile.dev.package.argon2]
+opt-level = 3
+
+[profile.dev.package.blake2]
+opt-level = 3
