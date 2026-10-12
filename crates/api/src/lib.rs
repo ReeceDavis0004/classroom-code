@@ -17,6 +17,7 @@ pub mod mail;
 pub mod password;
 pub mod register;
 pub mod reset;
+pub mod rooms;
 pub mod session;
 pub mod time;
 pub mod token;
@@ -45,6 +46,8 @@ pub fn router(state: AppState) -> Router {
             "/sessions/{id}",
             axum::routing::delete(account::revoke_session),
         )
+        .route("/rooms", get(rooms::list).post(rooms::create))
+        .route("/rooms/{rid}", get(rooms::get))
         .route_layer(middleware::from_fn_with_state(
             state.clone(),
             session::require,
