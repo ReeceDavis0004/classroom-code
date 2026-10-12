@@ -1,0 +1,10 @@
+[package]
+name = "migrate"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+
+[dependencies]
+classroom-core.workspace = true
+sqlx.workspace = true
+tokio.workspace = true
