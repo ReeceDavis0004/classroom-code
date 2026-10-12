@@ -1,0 +1,17 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "INSERT INTO professors (id, email, password_hash, display_name)\n         VALUES ($1, $2::text::citext, $3, $4)\n         ON CONFLICT (email) DO NOTHING",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Text",
+        "Text",
+        "Text"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "eafa11b69f7aaf0d4302838907988068d57a81062ab780e70828109ae939cdd0"
+}

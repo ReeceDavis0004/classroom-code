@@ -1,0 +1,14 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "WITH t AS (\n           UPDATE email_tokens SET used_at = now()\n            WHERE token_hash = $1 AND purpose = 'verify' AND used_at IS NULL AND expires_at > now()\n           RETURNING professor_id)\n         UPDATE professors p SET status = 'active'\n           FROM t WHERE p.id = t.professor_id AND p.status = 'unverified'",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Bytea"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "fc74d6d2d5aefd3cad74c41481bf96b362a938ec128e9b7c8b3dd825a5bf19d8"
+}

@@ -1,0 +1,14 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE professor_invites SET used_at = now()\n          WHERE code_hash = $1 AND used_at IS NULL AND expires_at > now()",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Bytea"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "c8a52d063f2ef9c981bd748ebcbbd821bbbe682676889d6e41598d9a8019c99f"
+}

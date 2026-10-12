@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "INSERT INTO email_tokens (token_hash, professor_id, purpose, expires_at)\n         VALUES ($1, $2, 'verify', now() + interval '24 hours')",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Bytea",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "57c48c0b57596f01eccef11a9ff05be3e94611a711cb382c3d7dd3196f3470b7"
+}

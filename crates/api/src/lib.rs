@@ -13,6 +13,7 @@ pub mod invite;
 pub mod login;
 pub mod mail;
 pub mod password;
+pub mod register;
 pub mod session;
 pub mod time;
 pub mod token;
@@ -25,7 +26,10 @@ pub struct AppState {
 }
 
 pub fn router(state: AppState) -> Router {
-    let public = Router::new().route("/auth/login", post(login::login));
+    let public = Router::new()
+        .route("/auth/register", post(register::register))
+        .route("/auth/verify", post(register::verify))
+        .route("/auth/login", post(login::login));
 
     Router::new()
         .route("/healthz", get(|| async { "ok" }))
