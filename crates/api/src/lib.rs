@@ -3,10 +3,12 @@ use std::sync::Arc;
 use axum::{
     Router,
     extract::DefaultBodyLimit,
+    middleware,
     routing::{get, post},
 };
 use sqlx::PgPool;
 
+pub mod account;
 pub mod config;
 pub mod error;
 pub mod invite;
@@ -34,9 +36,24 @@ pub fn router(state: AppState) -> Router {
         .route("/auth/reset-request", post(reset::request))
         .route("/auth/reset", post(reset::reset));
 
+    let professor = Router::new()
+        .route("/session", get(account::session))
+        .route("/logout", post(account::logout))
+        .route("/password", post(account::change_password))
+        .route("/sessions", get(account::list_sessions))
+        .route(
+            "/sessions/{id}",
+            axum::routing::delete(account::revoke_session),
+        )
+        .route_layer(middleware::from_fn_with_state(
+            state.clone(),
+            session::require,
+        ));
+
     Router::new()
         .route("/healthz", get(|| async { "ok" }))
         .nest("/api/v1/pub", public)
+        .nest("/api/v1/p", professor)
         .fallback(|| async { error::ApiError::NotFound })
         .layer(DefaultBodyLimit::max(256 * 1024))
         .with_state(state)
