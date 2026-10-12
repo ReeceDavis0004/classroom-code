@@ -11,3 +11,8 @@ async fn schema_check_detects_missing_migration(pool: PgPool) {
     .unwrap();
     assert!(!classroom_core::schema_is_current(&pool).await.unwrap());
 }
+
+#[sqlx::test(migrations = false)]
+async fn unmigrated_database_is_not_current(pool: PgPool) {
+    assert!(!classroom_core::schema_is_current(&pool).await.unwrap());
+}
