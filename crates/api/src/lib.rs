@@ -1,13 +1,19 @@
 use std::sync::Arc;
 
-use axum::{Router, extract::DefaultBodyLimit, routing::get};
+use axum::{
+    Router,
+    extract::DefaultBodyLimit,
+    routing::{get, post},
+};
 use sqlx::PgPool;
 
 pub mod config;
 pub mod error;
 pub mod invite;
+pub mod login;
 pub mod mail;
 pub mod password;
+pub mod session;
 pub mod time;
 pub mod token;
 
@@ -19,8 +25,11 @@ pub struct AppState {
 }
 
 pub fn router(state: AppState) -> Router {
+    let public = Router::new().route("/auth/login", post(login::login));
+
     Router::new()
         .route("/healthz", get(|| async { "ok" }))
+        .nest("/api/v1/pub", public)
         .fallback(|| async { error::ApiError::NotFound })
         .layer(DefaultBodyLimit::max(256 * 1024))
         .with_state(state)

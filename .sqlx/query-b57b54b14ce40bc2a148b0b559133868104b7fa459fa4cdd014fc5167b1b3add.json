@@ -1,0 +1,17 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "INSERT INTO professor_sessions (id_hash, public_id, professor_id, csrf_token, expires_at)\n         VALUES ($1, $2, $3, $4, now() + interval '7 days')",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Bytea",
+        "Uuid",
+        "Uuid",
+        "Text"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "b57b54b14ce40bc2a148b0b559133868104b7fa459fa4cdd014fc5167b1b3add"
+}
